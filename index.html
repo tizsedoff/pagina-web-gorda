@@ -5,19 +5,20 @@
     <title>APS Shop - Scanner</title>
     <style>
         body { background-color: #000; color: white; font-family: sans-serif; text-align: center; padding-top: 50px; cursor: pointer; }
-        .contenedor { border: 2px solid #007bff; display: inline-block; padding: 20px; border-radius: 15px; }
-        input { padding: 10px; font-size: 1.2rem; margin: 10px; border-radius: 5px; }
-        button { padding: 10px 20px; font-size: 1.1rem; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px; }
-        #imagenMeme { width: 300px; display: none; margin: 20px auto; }
+        .contenedor { border: 2px solid #007bff; display: inline-block; padding: 30px; border-radius: 20px; background: #111; }
+        h1 { color: #007bff; margin-bottom: 5px; }
+        input { padding: 10px; font-size: 1.2rem; margin: 20px; border-radius: 10px; border: none; text-align: center; }
+        button { padding: 15px 30px; font-size: 1.1rem; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 10px; font-weight: bold; }
+        #imagenMeme { width: 300px; display: none; margin: 20px auto; border-radius: 10px; }
     </style>
 </head>
 <body>
     <div class="contenedor">
-        <h1>APS Developer</h1>
-        <p>SISTEMA DE ESCANEO</p>
-        <input type="number" id="inputPeso" placeholder="Peso en kg">
+        <h1>APS SHOP</h1>
+        <p>SISTEMA DE ESCANEO BIOMÉTRICO</p>
+        <input type="number" id="inputPeso" placeholder="00">
         <br>
-        <button onclick="ejecutarReto()">ESCANEAR</button>
+        <button onclick="ejecutarReto()">INICIAR ESCANEO</button>
         <h2 id="mensaje"></h2>
         <img id="imagenMeme" src="">
     </div>
@@ -28,21 +29,25 @@
             const mensaje = document.getElementById('mensaje');
             const imagen = document.getElementById('imagenMeme');
 
-            if (peso === "") return alert("Ingresa datos");
-
-            imagen.style.display = "block";
+            if (peso === "") return alert("Ingrese datos para APS Shop");
 
             if (parseFloat(peso) > 100) {
-                mensaje.innerText = "¡ERROR CRÍTICO! SOBRECARGA";
+                mensaje.innerText = "¡ERROR CRÍTICO! SOBRECARGA EN APS SHOP";
                 mensaje.style.color = "#ff4444";
-                // Asegurate de que los archivos se llamen exactamente así en GitHub
+                
+                // Usamos ./ para que GitHub encuentre el archivo al lado del index
                 imagen.src = "./image-removebg-preview.png"; 
+                imagen.style.display = "block";
+                
                 let audio = new Audio('./oye-gela-escuchate-esto-saturado.mp3');
-                audio.play().catch(() => alert("Hacé clic en el fondo negro primero"));
+                audio.play().catch(() => {
+                    alert("¡TOCÁ EL FONDO NEGRO PARA ACTIVAR EL AUDIO!");
+                });
             } else {
-                mensaje.innerText = "Usuario autorizado";
+                mensaje.innerText = "Usuario autorizado por APS Shop";
                 mensaje.style.color = "#44ff44";
                 imagen.src = "https://media.giphy.com/media/l0HlBO7eyWzSZkJri/giphy.gif";
+                imagen.style.display = "block";
             }
         }
     </script>
