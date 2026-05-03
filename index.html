@@ -1,117 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APS - Challenge IA</title>
-    <style>
-        /* Diseño oscuro estilo terminal */
-        body {
-            background-color: #000;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            cursor: pointer; /* Para recordarte que hay que hacer click */
-        }
-        .contenedor {
-            text-align: center;
-            background: #111;
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid #333;
-            width: 350px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-        h1 { font-size: 1.8rem; margin-bottom: 20px; }
-        .opciones { margin-bottom: 20px; font-size: 1.1rem; }
-        input[type="number"] {
-            padding: 15px;
-            width: 80%;
-            border-radius: 10px;
-            border: none;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-            background: #fff;
-            color: #000;
-        }
-        button {
-            background-color: #fff;
-            color: #000;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover { background-color: #ccc; transform: scale(1.05); }
-        #resultado { margin-top: 30px; }
-        #mensaje { font-size: 1.2rem; min-height: 1.5em; margin-bottom: 15px; }
-        .meme { width: 250px; border-radius: 10px; display: none; margin: 0 auto; }
-    </style>
-</head>
-<body>
+function ejecutarReto() {
+    const peso = document.getElementById('inputPeso').value;
+    const mensaje = document.getElementById('mensaje');
+    const imagen = document.getElementById('imagenMeme');
 
-    <div class="contenedor">
-        <h1>¡Selecciona una opción!</h1>
+    if (peso === "") return alert("Ingrese datos para APS Shop");
+
+    // Usamos "./" para decirle a GitHub que busque en la misma carpeta
+    imagen.src = "./image-removebg-preview.png"; 
+    imagen.style.display = "block";
+
+    if (parseFloat(peso) > 100) {
+        mensaje.innerText = "¡ERROR CRÍTICO EN EL SISTEMA! SOBRECARGA DETECTADA";
+        mensaje.style.color = "#ff4444";
         
-        <div class="opciones">
-            <input type="radio" name="genero" id="masc"> Masculino
-            <input type="radio" name="genero" id="fem"> Femenino
-        </div>
-
-        <p>Ingresa tu peso (kg)</p>
-        <input type="number" id="inputPeso" placeholder="00">
-        <br>
-        <button onclick="ejecutarReto()">Calcular</button>
-
-        <div id="resultado">
-            <h2 id="mensaje"></h2>
-            <img id="imagenMeme" class="meme" src="" alt="Meme">
-        </div>
-    </div>
-
-    <script>
-        function ejecutarReto() {
-            const peso = document.getElementById('inputPeso').value;
-            const mensaje = document.getElementById('mensaje');
-            const imagen = document.getElementById('imagenMeme');
-
-            if (peso === "") {
-                alert("Primero pone el peso, ¡no seas rata!");
-                return;
-            }
-
-            imagen.style.display = "block";
-
-            if (parseFloat(peso) > 100) {
-                // TROLLEO ACTIVADO
-                mensaje.innerText = "¡ALERTA! EL SISTEMA NO SOPORTA TANTO";
-                mensaje.style.color = "#ff4444";
-                
-                // Usamos tus archivos locales
-                imagen.src = "image-removebg-preview.png"; 
-                
-                let audio = new Audio('oye-gela-escuchate-esto-saturado.mp3'); 
-                audio.play().catch(e => {
-                    alert("¡Hacé un click en el fondo negro primero para activar el sonido!");
-                });
-
-            } else {
-                // PESO NORMAL
-                mensaje.innerText = "Todo tranqui por ahora...";
-                mensaje.style.color = "#44ff44";
-                // Dejamos un gif de reserva por si acaso
-                imagen.src = "https://media.giphy.com/media/l0HlBO7eyWzSZkJri/giphy.gif";
-            }
-        }
-    </script>
-
-</body>
-</html>
+        // Lo mismo para el audio
+        let audio = new Audio('./oye-gela-escuchate-esto-saturado.mp3');
+        audio.play().catch(error => {
+            console.log("Error:", error);
+            alert("Hacé un click en el fondo negro para activar el sistema");
+        });
+    } else {
+        mensaje.innerText = "Usuario autorizado por APS Shop";
+        mensaje.style.color = "#44ff44";
+        imagen.src = "https://media.giphy.com/media/l0HlBO7eyWzSZkJri/giphy.gif";
+    }
+}
